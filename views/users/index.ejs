@@ -15,15 +15,36 @@
             </tr>
         </thead>
         <tbody>
+            <% user.forEach(function(item){ %>
             <tr>
-                <td>qcc</td>
+                <td><%=item.email%></td>
                 <td>
-                    <button type="button" class="btn btn-link">edit</button>
-                    <button type="button" class="btn btn-link">delete</button>
+                    <a class="btn btn-link" href="/users/edit?id=<%=item._id%>">edit</a>
+                    <button type="button" class="btn btn-link" onclick="del('<%=item._id%>')">delete</button>
                 </td>
             </tr>
+            <% }) %>
         </tbody>
       </table>
   </div>
+    <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+    function del(id) {
+        var cf = confirm('确定删除?');
+        if (cf) {
+            $.ajax({
+                type: 'POST', 
+                url: '/users/delete', 
+                data: {id: id}, 
+                dataType: 'json', 
+                success: function(res) {
+                    window.location.reload();
+                }
+            });
+        } else {
+
+        }
+    }
+    </script>
   </body>
 </html>
