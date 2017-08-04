@@ -7,8 +7,16 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var session = require('express-session');
 
 var app = express();
+
+app.use (session({  
+  secret:'secret',  
+    cookie:{  
+        maxAge:1000*60*30  
+    }  
+}));
 
 app.use(require("express-chrome-logger"));
 
